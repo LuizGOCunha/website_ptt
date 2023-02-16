@@ -5,4 +5,6 @@ A simple webproject with custom User model, Address model (linked with User by o
 Simply a test of my skills as a developer.
 
 TO DO:
-- encrypt user password
+- create login system
+- create user api with restframework
+- establish solid automated testing

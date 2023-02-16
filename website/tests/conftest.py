@@ -39,3 +39,22 @@ def user_object(db, address_object):
         address=address_object,
     )
     return user
+
+@pytest.fixture()
+def signup_data():
+    data = {
+        "name" : "Nome Teste",
+        'email' : "Test@nome.com",
+        'cpf' : "59780510117",
+        'pis' : "55030633580",
+        'password' : "123456",
+        'password_conf' : "123456",
+        'street' : "Rua Exemplo Teste",
+        'number' : 228,
+        'city' : "Fortaleza",
+        'state' : "Ceará",
+        'country' : "Brazil",
+        'complement' : "Casa 8",
+        'zipcode' : "59147-230",
+    }
+    return data

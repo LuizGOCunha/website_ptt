@@ -40,10 +40,13 @@ def signup(request):
                     email=request.POST["email"],
                     cpf=request.POST["cpf"],
                     pis=request.POST["pis"],
+                    password=request.POST["password"],
                     address=address
                 )
                 user.full_clean()
                 user.save()
+                return redirect("/signin/")
+                
             except IntegrityError:
                 context["message"] = "User already exists."
         else:
