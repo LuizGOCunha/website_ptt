@@ -5,7 +5,11 @@
   </head>
   <body>
     <h1>Welcome to My Website</h1>
-    <p>This is the home page of my website.</p>
+    {% if authenticated %}
+    <h1> Olá {{user.name}}! </h1>
+    {% else %}
+    <h1> Olá Visitante! </h1>
+    {% endif %}
 
     <ul>
         <li><a href="{% url 'signin' %}">Sign In</a></li>

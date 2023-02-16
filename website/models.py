@@ -6,6 +6,7 @@ from .validators import pis_validator
 
 from cpf_field.models import CPFField
 
+
 class UserPTTManager(models.Manager):
     def get_by_natural_key(self, email):
         return self.get(email=email)

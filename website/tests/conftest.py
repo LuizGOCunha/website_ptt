@@ -60,5 +60,3 @@ def signup_data():
         "zipcode": "59147-230",
     }
     return data
-
-

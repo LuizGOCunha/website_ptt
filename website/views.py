@@ -1,20 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.http import HttpRequest
 
 from .forms import SigninForm, SignupForm
 from .models import UserPTT, Address
 
 
-def index(request):
+def index(request: HttpRequest):
     context = {}
     if request.user.is_authenticated:
-        context["user"] = request.user
+        context["authenticated"] = True
 
     return render(request, "index.html", context)
 
 
-def signup(request):
+def signup(request: HttpRequest):
     context = {}
     context["form"] = SignupForm
 
@@ -57,7 +58,7 @@ def signup(request):
     return render(request, "signup.html", context)
 
 
-def signin(request):
+def signin(request: HttpRequest):
     context = {}
     context["form"] = SigninForm
 
@@ -75,8 +76,8 @@ def signin(request):
     return render(request, "signin.html", context)
 
 
-def signout(request):
+def signout(request: HttpRequest):
     if request.user.is_authenticated:
-        logout(request)
-
+        print(request.user)
+    logout(request)
     return redirect("/")

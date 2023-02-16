@@ -71,11 +71,8 @@ class TestSigninView:
 
     def test_if_we_can_login_through_view(self, user_object, signup_data):
         response = self.client.post(
-            path=reverse('signin'),
-            data={
-                "email": signup_data["email"],
-                "password": signup_data["password"]
-            }
+            path=reverse("signin"),
+            data={"email": signup_data["email"], "password": signup_data["password"]},
         )
         # When signin is successful, redirects to homepage, returning 302
         assert response.status_code == 302
