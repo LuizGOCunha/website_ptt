@@ -1,5 +1,6 @@
 from django import forms
 
+
 class SignupForm(forms.Form):
     name = forms.CharField(max_length=150, required=True)
     pis = forms.CharField(max_length=11, required=True)
@@ -11,15 +12,13 @@ class SignupForm(forms.Form):
     street = forms.CharField(max_length=150, required=True)
     number = forms.IntegerField(required=True)
     zipcode = forms.CharField(max_length=50, required=True)
-    complement = forms.CharField(max_length=150)
+    complement = forms.CharField(max_length=150, required=False)
 
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
-    password_conf = forms.CharField(widget=forms.PasswordInput)
+    password_conf = forms.CharField(widget=forms.PasswordInput, required=True)
+
 
 class SigninForm(forms.Form):
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
-
-
-    

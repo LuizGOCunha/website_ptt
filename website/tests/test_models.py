@@ -37,7 +37,6 @@ class TestAddressModel:
 
 @pytest.mark.django_db
 class TestUserModel:
-    
     def test_if_we_can_create_a_proper_user(self, address_object):
         name = "Nome Teste"
         email = "Test@nome.com"
@@ -94,5 +93,3 @@ class TestUserModel:
                 address=address_object,
             )
             user.full_clean()
-        
-        

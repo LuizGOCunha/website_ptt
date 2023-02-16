@@ -5,12 +5,14 @@ from django.db import IntegrityError
 from .forms import SigninForm, SignupForm
 from .models import UserPTT, Address
 
+
 def index(request):
     context = {}
     if request.user.is_authenticated:
         context["user"] = request.user
 
     return render(request, "index.html", context)
+
 
 def signup(request):
     context = {}
@@ -41,18 +43,19 @@ def signup(request):
                     cpf=request.POST["cpf"],
                     pis=request.POST["pis"],
                     password=request.POST["password"],
-                    address=address
+                    address=address,
                 )
                 user.full_clean()
                 user.save()
                 return redirect("/signin/")
-                
+
             except IntegrityError:
                 context["message"] = "User already exists."
         else:
             context["message"] = "Passwords do not match"
 
     return render(request, "signup.html", context)
+
 
 def signin(request):
     context = {}
@@ -70,6 +73,7 @@ def signin(request):
             context["message"] = "Invalid Credentials, please try again."
 
     return render(request, "signin.html", context)
+
 
 def signout(request):
     if request.user.is_authenticated:
