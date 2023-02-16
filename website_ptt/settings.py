@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "website",
+    "cpf_field",
 ]
+
+AUTH_USER_MODEL = "website.UserPTT"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

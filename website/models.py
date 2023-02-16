@@ -1,3 +1,42 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from .validators import pis_validator
 
-# Create your models here.
+from cpf_field.models import CPFField
+
+
+class Address(models.Model):
+    country = models.CharField(max_length=150)
+    state = models.CharField(max_length=150)
+    city = models.CharField(max_length=150)
+    zipcode = models.CharField("Zip-code", max_length=50)
+    street = models.CharField(max_length=150)
+    number = models.IntegerField()
+    complement = models.CharField(max_length=150, null=True, blank=True)
+
+    def return_full_address(self):
+        full_address = (
+            f"{self.street} {self.number}; {self.city}, {self.state}, {self.country}"
+        )
+        return full_address
+
+
+class UserPTT(AbstractBaseUser):
+    name = models.CharField(max_length=150)
+    email = models.EmailField(unique=True)
+    address = models.OneToOneField(
+        Address, on_delete=models.CASCADE, related_name="user"
+    )
+    # Validation required!
+    last_login = models.DateTimeField(auto_now_add=True)
+    cpf = CPFField("CPF")
+    # Validation required!
+    pis = models.CharField(
+        "PIS",
+        max_length=11,
+        validators=[
+            pis_validator,
+        ],
+    )
+
+    USERNAME_FIELD = "email"
