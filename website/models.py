@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.hashers import make_password
+
 from .validators import pis_validator
 
 from cpf_field.models import CPFField
@@ -27,8 +29,8 @@ class UserPTT(AbstractBaseUser):
     address = models.OneToOneField(
         Address, on_delete=models.CASCADE, related_name="user"
     )
-    # Validation required!
     last_login = models.DateTimeField(auto_now_add=True)
+    # Validation required!
     cpf = CPFField("CPF")
     # Validation required!
     pis = models.CharField(
@@ -40,3 +42,8 @@ class UserPTT(AbstractBaseUser):
     )
 
     USERNAME_FIELD = "email"
+
+    # By partially overriding this method, we can encrypt our password.
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super(UserPTT, self).save(*args, **kwargs)

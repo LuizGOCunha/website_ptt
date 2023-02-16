@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Website</title>
+  </head>
+  <body>
+    <h1>Welcome to My Website</h1>
+    <p>This is the home page of my website.</p>
+
+    <ul>
+        <li><a href="{% url 'signin' %}">Sign In</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% if authenticated %}
+        <li><a href="{% url 'signout' %}">Signout</a></li>
+        {% endif %}
+    </ul>
+
+  </body>
+</html>

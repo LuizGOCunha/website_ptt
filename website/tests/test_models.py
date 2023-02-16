@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from website.models import Address, UserPTT
 
 import pytest
@@ -35,13 +37,14 @@ class TestAddressModel:
 
 @pytest.mark.django_db
 class TestUserModel:
-    def test_if_we_can_create_a_aproper_user(self, address_object):
+    
+    def test_if_we_can_create_a_proper_user(self, address_object):
         name = "Nome Teste"
         email = "Test@nome.com"
         cpf = "59780510117"
         pis = "55030633580"
         password = "123456"
-        UserPTT.objects.create(
+        user = UserPTT(
             name=name,
             email=email,
             cpf=cpf,
@@ -49,10 +52,47 @@ class TestUserModel:
             password=password,
             address=address_object,
         )
+        user.full_clean()
+        user.save()
         assert UserPTT.objects.count() == 1
         user = UserPTT.objects.first()
         assert user.name == name
         assert user.email == email
         assert user.cpf == cpf
         assert user.pis == pis
+        # password encrypted
         assert user.check_password(password)
+
+    def test_if_we_can_create_improper_user(self, address_object):
+        with pytest.raises(ValidationError):
+            name = "Nome Teste"
+            email = "Test@nome.com"
+            cpf = "59780510117"
+            pis = "sad"
+            password = "123456"
+            user = UserPTT(
+                name=name,
+                email=email,
+                cpf=cpf,
+                pis=pis,
+                password=password,
+                address=address_object,
+            )
+            user.full_clean()
+        with pytest.raises(ValidationError):
+            name = "Nome Teste"
+            email = "Test@nome.com"
+            cpf = "123"
+            pis = "55030633580"
+            password = "123456"
+            user = UserPTT(
+                name=name,
+                email=email,
+                cpf=cpf,
+                pis=pis,
+                password=password,
+                address=address_object,
+            )
+            user.full_clean()
+        
+        
