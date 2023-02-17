@@ -108,6 +108,7 @@ class TestEditInfoView:
             path=reverse("editinfo"),
             data={
                 "name": "Distinct Name",
+                "password": signup_data["password"]
             }
         )
         assert response.status_code == 200
@@ -125,8 +126,10 @@ class TestEditInfoView:
             path=reverse("editinfo"),
             data={
                 "street": "Distinct Street",
+                "password": signup_data["password"]
             }
         )
         assert response.status_code == 200
         address = Address.objects.first()
         assert address.street == "Distinct Street"
+        assert address.number == signup_data["number"]

@@ -35,3 +35,4 @@ class EditInfoForm(forms.Form):
     zipcode = forms.CharField(max_length=50, required=False)
     complement = forms.CharField(max_length=150, required=False)
     email = forms.EmailField(max_length=150, required=False)
+    password = forms.CharField(max_length=150, required=True, label="Confirm your password")
