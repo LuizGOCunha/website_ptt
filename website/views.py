@@ -86,9 +86,7 @@ def signout(request: HttpRequest):
 def editinfo(request: HttpRequest):
     context = {}
 
-
     if request.user.is_authenticated:
-
         context["form"] = EditInfoForm
 
         if request.method == "POST":
@@ -143,7 +141,7 @@ def editinfo(request: HttpRequest):
                 address.save()
                 print(user.address.street)
                 print("****", UserPTT.objects.get(id=request.user.id).pis)
-                print("after",user.password)
+                print("after", user.password)
                 context["message"] = "Changes successful"
 
     else:

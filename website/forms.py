@@ -23,6 +23,7 @@ class SigninForm(forms.Form):
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
 
+
 class EditInfoForm(forms.Form):
     name = forms.CharField(max_length=150, required=False)
     pis = forms.CharField(max_length=11, required=False)
@@ -35,4 +36,6 @@ class EditInfoForm(forms.Form):
     zipcode = forms.CharField(max_length=50, required=False)
     complement = forms.CharField(max_length=150, required=False)
     email = forms.EmailField(max_length=150, required=False)
-    password = forms.CharField(max_length=150, required=True, label="Confirm your password")
+    password = forms.CharField(
+        max_length=150, required=True, label="Confirm your password"
+    )

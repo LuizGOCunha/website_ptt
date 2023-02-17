@@ -101,15 +101,11 @@ class TestEditInfoView:
 
     def test_if_we_can_edit_our_users_info_through_view(self, user_object, signup_data):
         self.client.login(
-            username=signup_data["email"],
-            password=signup_data["password"]
+            username=signup_data["email"], password=signup_data["password"]
         )
         response = self.client.post(
             path=reverse("editinfo"),
-            data={
-                "name": "Distinct Name",
-                "password": signup_data["password"]
-            }
+            data={"name": "Distinct Name", "password": signup_data["password"]},
         )
         assert response.status_code == 200
         user = UserPTT.objects.first()
@@ -117,17 +113,15 @@ class TestEditInfoView:
         assert user.email == signup_data["email"]
         assert user.check_password(signup_data["password"])
 
-    def test_if_we_can_edit_our_users_address_info_through_view(self, user_object, signup_data):
+    def test_if_we_can_edit_our_users_address_info_through_view(
+        self, user_object, signup_data
+    ):
         self.client.login(
-            username=signup_data["email"],
-            password=signup_data["password"]
+            username=signup_data["email"], password=signup_data["password"]
         )
         response = self.client.post(
             path=reverse("editinfo"),
-            data={
-                "street": "Distinct Street",
-                "password": signup_data["password"]
-            }
+            data={"street": "Distinct Street", "password": signup_data["password"]},
         )
         assert response.status_code == 200
         address = Address.objects.first()
