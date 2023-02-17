@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 
-from website.views import signup
+from website.views import signup, editinfo
 from website.models import UserPTT, Address
 
 
@@ -88,3 +88,45 @@ class TestSignoutView:
         response = self.client.get(reverse("signout"))
         # signout is a redirect, normally it returns a 302
         assert response.status_code == 302
+
+
+@pytest.mark.django_db
+class TestEditInfoView:
+    client = Client()
+    factory = RequestFactory()
+
+    def test_if_view_is_redirecting_non_authenticated_users(self):
+        response = self.client.get(reverse("editinfo"))
+        assert response.status_code == 302
+
+    def test_if_we_can_edit_our_users_info_through_view(self, user_object, signup_data):
+        self.client.login(
+            username=signup_data["email"],
+            password=signup_data["password"]
+        )
+        response = self.client.post(
+            path=reverse("editinfo"),
+            data={
+                "name": "Distinct Name",
+            }
+        )
+        assert response.status_code == 200
+        user = UserPTT.objects.first()
+        assert user.name == "Distinct Name"
+        assert user.email == signup_data["email"]
+        assert user.check_password(signup_data["password"])
+
+    def test_if_we_can_edit_our_users_address_info_through_view(self, user_object, signup_data):
+        self.client.login(
+            username=signup_data["email"],
+            password=signup_data["password"]
+        )
+        response = self.client.post(
+            path=reverse("editinfo"),
+            data={
+                "street": "Distinct Street",
+            }
+        )
+        assert response.status_code == 200
+        address = Address.objects.first()
+        assert address.street == "Distinct Street"

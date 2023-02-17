@@ -16,6 +16,7 @@
         <li><a href="{% url 'signup' %}">Sign Up</a></li>
         {% if authenticated %}
         <li><a href="{% url 'signout' %}">Signout</a></li>
+        <li><a href="{% url 'editinfo' %}">Edit User Information</a></li>
         {% endif %}
     </ul>
 

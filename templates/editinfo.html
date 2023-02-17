@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Website</title>
+  </head>
+  <body>
+    <h1>Edit User Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit"></input>
+    </form>
+
+
+    {% if message %}
+    <script>
+      alert('{{message}}')
+    </script>
+    {% endif %}
+
+  </body>
+</html>

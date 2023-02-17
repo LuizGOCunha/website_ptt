@@ -8,3 +8,5 @@ TO DO:
 - create login system
 - create user api with restframework
 - establish solid automated testing
+- dockerize project
+- deploy on heroku or similar
