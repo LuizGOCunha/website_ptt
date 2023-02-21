@@ -16,7 +16,9 @@ class SignupForm(forms.Form):
 
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
-    password_conf = forms.CharField(widget=forms.PasswordInput, required=True, label="Confirm your password")
+    password_conf = forms.CharField(
+        widget=forms.PasswordInput, required=True, label="Confirm your password"
+    )
 
 
 class SigninForm(forms.Form):

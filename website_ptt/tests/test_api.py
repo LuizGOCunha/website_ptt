@@ -3,6 +3,7 @@ import pytest
 from django.test import Client, RequestFactory
 from django.urls import reverse
 
+
 @pytest.mark.django_db
 class TestIndexView:
     client = Client()
@@ -32,7 +33,9 @@ class TestIndexView:
         assert response_data["cpf"] == signup_data["cpf"]
         assert response_data["email"] == signup_data["email"]
 
-    def test_if_addresses_endpoint_presents_right_data(self, address_object, signup_data):
+    def test_if_addresses_endpoint_presents_right_data(
+        self, address_object, signup_data
+    ):
         response = self.client.get(reverse("addresses-detail", args=["1"]))
         response_data = response.json()
         assert response_data["street"] == signup_data["street"]
@@ -43,10 +46,10 @@ class TestIndexView:
         assert response_data["country"] == signup_data["country"]
 
     def test_if_we_can_retrieve_our_jwt_token(self, user_object, signup_data):
-        response = self.client.post(reverse("token_obtain_pair"), data={
-            "email": signup_data["email"],
-            "password": signup_data["password"]
-        })
+        response = self.client.post(
+            reverse("token_obtain_pair"),
+            data={"email": signup_data["email"], "password": signup_data["password"]},
+        )
         assert response.status_code == 200
         assert response.json()["access"]
         assert response.json()["refresh"]

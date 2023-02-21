@@ -23,13 +23,9 @@ class Address(models.Model):
 
     def __str__(self):
         if self.complement:
-            full_address = (
-                f"{self.street} {self.number}, {self.complement}; {self.city}, {self.state}, {self.country}"
-            )
+            full_address = f"{self.street} {self.number}, {self.complement}; {self.city}, {self.state}, {self.country}"
         else:
-            full_address = (
-                f"{self.street} {self.number}; {self.city}, {self.state}, {self.country}"
-            )
+            full_address = f"{self.street} {self.number}; {self.city}, {self.state}, {self.country}"
         return full_address
 
 
