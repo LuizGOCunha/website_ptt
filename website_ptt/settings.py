@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "website",
     "cpf_field",
+    "rest_framework",
+    "restapi",
 ]
 
 AUTH_USER_MODEL = "website.UserPTT"

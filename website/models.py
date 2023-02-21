@@ -21,10 +21,15 @@ class Address(models.Model):
     number = models.IntegerField()
     complement = models.CharField(max_length=150, null=True, blank=True)
 
-    def return_full_address(self):
-        full_address = (
-            f"{self.street} {self.number}; {self.city}, {self.state}, {self.country}"
-        )
+    def __str__(self):
+        if self.complement:
+            full_address = (
+                f"{self.street} {self.number}, {self.complement}; {self.city}, {self.state}, {self.country}"
+            )
+        else:
+            full_address = (
+                f"{self.street} {self.number}; {self.city}, {self.state}, {self.country}"
+            )
         return full_address
 
 
