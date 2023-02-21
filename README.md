@@ -16,5 +16,4 @@ Signout is a view that simply logs out the user and redirects him to the index. 
 
 
 TO DO:
-- create user api with restframework
 - deploy on heroku or similar
