@@ -41,3 +41,12 @@ class TestIndexView:
         assert response_data["city"] == signup_data["city"]
         assert response_data["state"] == signup_data["state"]
         assert response_data["country"] == signup_data["country"]
+
+    def test_if_we_can_retrieve_our_jwt_token(self, user_object, signup_data):
+        response = self.client.post(reverse("token_obtain_pair"), data={
+            "email": signup_data["email"],
+            "password": signup_data["password"]
+        })
+        assert response.status_code == 200
+        assert response.json()["access"]
+        assert response.json()["refresh"]
